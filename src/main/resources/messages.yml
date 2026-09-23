@@ -1,0 +1,54 @@
+# =====================================================================
+#  qStudio AntiCrash - messages.yml
+#  All administrator-facing messages. Legacy &-color codes are supported.
+#  Placeholders are documented inline per message.
+# =====================================================================
+
+alerts:
+  # Real-time protection alert. Placeholders: {player} {module} {rule}
+  # {detail} {actual} {limit} {violations} {actions}
+  format: "&8[&bqStudio&f AntiCrash&8]\n&ePlayer: &f{player}\n&eModule: &f{module}\n&ePacket/Rule: &f{rule}\n&eDetail: &f{detail}\n&eActual: &f{actual}\n&eLimit: &f{limit}\n&eViolations: &f{violations}\n&eAction: &f{actions}"
+
+commands:
+  help:
+    - "&bqStudio AntiCrash &7- by qSa3ed"
+    - "&e/qanticrash reload &7- reload configuration and rules"
+    - "&e/qanticrash status &7- protection and server status"
+    - "&e/qanticrash debug player <player> &7- why modules flag a player"
+    - "&e/qanticrash violations <player> &7- violation levels"
+    - "&e/qanticrash reset <player> &7- reset a player's violations"
+    - "&e/qanticrash alerts &7- toggle real-time alerts"
+    - "&e/qanticrash modules &7- list protection modules"
+    - "&e/qanticrash inspect &7- full server diagnostics"
+    - "&e/qanticrash test &7- self-test of protection components"
+    - "&e/qanticrash safemode &7- toggle Safe Mode"
+    - "&e/qanticrash version &7- version info"
+  status: []
+  debug: []
+  violations: []
+  modules: []
+  inspect: []
+  test: []
+  version: []
+
+errors:
+  no-permission: "&cYou do not have permission to use qStudio AntiCrash."
+  no-subpermission: "&cYou do not have permission for this subcommand."
+  player-not-found: "&cPlayer not found: {name}"
+  reload-failed: "&cReload failed: {reason}"
+
+reload:
+  success: "&aqStudio AntiCrash configuration reloaded."
+  failure: "&cReload failed: {reason}"
+
+safemode:
+  enabled: "&cSafe Mode ACTIVATED - protections are stricter. Use /qanticrash safemode again to disable."
+  disabled: "&aSafe Mode deactivated - normal protection levels."
+  auto-enabled-console: "&b[qStudio AntiCrash] &cSafe Mode ACTIVATED (reason: {reason}). Protections are now stricter."
+
+protection:
+  disconnect-reason: "&cqStudio AntiCrash: blocked suspicious activity ({module})"
+  connection-rate: "qStudio AntiCrash: connection rate limit active, retry shortly"
+
+diagnostics:
+  header: "&bqStudio AntiCrash &7- diagnostics"

@@ -1,0 +1,157 @@
+# =====================================================================
+#  qStudio AntiCrash - main configuration
+#  Author: qSa3ed | Brand: qStudio
+#  Every module can be enabled/disabled independently. Missing keys fall
+#  back to these defaults, so a partial config is always safe.
+# =====================================================================
+
+general:
+  # Brand prefix used in console messages.
+  prefix: "&8[&bqStudio&f AntiCrash&8]&r "
+
+packets:
+  enabled: true
+  # Plugin-message payload size cap (bytes). Vanilla uses 32767.
+  max-payload-bytes: 32767
+  # Channels that are always dropped (case-insensitive).
+  denied-channels:
+    - "minecraft:register"
+    - "minecraft:unregister"
+  # Per-category client packet limits (per second + burst capacity).
+  # A value of 0 disables the limit for that category.
+  limits:
+    max-per-second:
+      movement: 250
+      interaction: 100
+      flying: 250
+      chat_command: 20
+      chat_message: 10
+      tab_complete: 20
+      plugin_message: 20
+      window_click: 60
+      entity_action: 40
+      held_item: 20
+      other: 120
+    burst:
+      movement: 100
+      interaction: 30
+      flying: 100
+      chat_command: 5
+      chat_message: 5
+      tab_complete: 5
+      plugin_message: 10
+      window_click: 20
+      entity_action: 20
+      held_item: 10
+      other: 60
+    # Combined per-player limit across all categories.
+    global-per-second: 1000
+
+movement:
+  enabled: true
+
+items:
+  enabled: true
+  # Inventory click rate (Bukkit layer).
+  max-clicks-per-second: 80
+
+books:
+  enabled: true
+  max-pages: 100
+  max-page-length: 5000
+  max-total-length: 50000
+  max-title-length: 32
+
+signs:
+  enabled: true
+  max-line-length: 128
+
+chat:
+  enabled: true
+  max-message-length: 256
+  max-command-length: 256
+  max-tab-length: 256
+  max-per-second: 10
+
+commands:
+  max-per-second: 20
+
+chunks:
+  enabled: true
+  # New-chunk generation tracking window is 10s.
+  max-new-per-player-per-window: 80
+  max-new-global-per-window: 600
+
+entities:
+  enabled: true
+  # Global spawn limiter.
+  max-spawns-per-second: 100
+  # Per-player projectile launches per second.
+  max-projectiles-per-second: 20
+  # Per-player interactions (right/left click) per second.
+  max-interactions-per-second: 40
+  # Per-chunk entity cap. Set chunk-cap-enabled: false to skip the scan
+  # (recommended off for extremely high spawn-rate farm servers).
+  chunk-cap-enabled: true
+  max-per-chunk: 200
+
+redstone:
+  enabled: true
+  # Storm thresholds per second per world. When exceeded, that feature is
+  # suppressed in that world for storm-cooldown-ms, then auto-restores.
+  max-changes-per-second: 4000
+  max-physics-per-second: 8000
+  max-pistons-per-second: 400
+  max-hopper-moves-per-second: 2000
+  max-dispenses-per-second: 200
+  storm-cooldown-ms: 5000
+  block-physics:
+    enabled: true
+  hoppers:
+    enabled: true
+
+memory:
+  enabled: true
+
+connections:
+  enabled: true
+  # Login bursts per IP inside the window. Soft refusal only - never a ban.
+  max-logins-per-ip-per-window: 8
+  window-seconds: 10
+
+performance:
+  # Async health sample cadence (ticks; 20 = 1s).
+  sample-interval-ticks: 60
+  # Async cleanup cadence (seconds).
+  cleanup-interval-seconds: 60
+  # Freeze detector thresholds.
+  min-tps: 12.0
+  max-mspt: 150.0
+  sustain-samples: 5
+
+violations:
+  decay-interval-seconds: 60
+  decay-amount: 2
+
+alerts:
+  console: true
+  ingame: true
+  throttle-ms: 2000
+
+logging:
+  incidents: true
+  violations: true
+  debug: false
+
+exemptions:
+  # Players with qanticrash.bypass skip all protections when true.
+  use-bypass-permission: true
+  players: []   # UUIDs, e.g. "069a79f4-44e9-4726-a5be-fca90e38aaf5"
+  worlds: []    # world names, e.g. "creative_world"
+
+safemode:
+  # Auto-enable Safe Mode when TPS/MSPT or heap degrade past thresholds.
+  auto-enable-on-degradation: true
+
+debug:
+  enabled: false

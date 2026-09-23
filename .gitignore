@@ -1,0 +1,29 @@
+# Build output
+target/
+*.jar
+!gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local verification artifacts (never committed)
+verify/
+*.tmp
+papermeta.xml
+
+# Freebuff local workspace marker
+.freebuff/

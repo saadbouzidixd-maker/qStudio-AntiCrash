@@ -1,0 +1,40 @@
+name: qStudio-AntiCrash
+version: 1.0.0
+main: studio.q.anticrash.AntiCrashPlugin
+api-version: '1.13'
+author: qSa3ed
+website: https://github.com/saadbouzidixd-maker/qStudio-AntiCrash
+description: Production-grade anti-crash, anti-exploit and server protection system.
+folia-supported: false
+
+softdepend:
+  - packetevents
+  - ProtocolLib
+
+commands:
+  qanticrash:
+    description: qStudio AntiCrash main command
+    usage: /qanticrash [reload|status|debug|violations|reset|alerts|modules|inspect|test|safemode|version]
+    aliases: [qac]
+    permission: qanticrash.admin
+    permission-message: You do not have permission to use qStudio AntiCrash.
+
+permissions:
+  qanticrash.admin:
+    description: Grants access to the /qanticrash command
+    default: op
+  qanticrash.reload:
+    description: Allows reloading the configuration
+    default: op
+  qanticrash.debug:
+    description: Allows using debug subcommands
+    default: op
+  qanticrash.inspect:
+    description: Allows inspecting server diagnostics
+    default: op
+  qanticrash.alerts:
+    description: Receives real-time protection alerts
+    default: op
+  qanticrash.bypass:
+    description: Exempts a player from all protections
+    default: false

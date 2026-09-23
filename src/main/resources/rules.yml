@@ -1,0 +1,265 @@
+# =====================================================================
+#  qStudio AntiCrash - rules.yml
+#  Each rule: enabled, severity (LOW/MEDIUM/HIGH/CRITICAL), threshold
+#  (module-specific meaning), cooldown-ms and actions.
+#
+#  Actions understood by the engine:
+#    LOG          write an incident record
+#    WARN         console warning
+#    ALERT        notify subscribed admins (in-game + console)
+#    CANCEL       module cancels the event / drops the packet
+#    RATE_LIMIT   module throttles the source
+#    TEMP_BLOCK   module temporarily blocks the source
+#    DISCONNECT   engine disconnects the player (netty-safe, deferred)
+#    KICK         alias of DISCONNECT
+#
+#  Only rules that are actually implemented by modules are listed here.
+# =====================================================================
+rules:
+  packet-flood:
+    description: "Per-category or global client packet rate exceeded"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  packet-malformed:
+    description: "Packet failed defensive parse (corrupt wrapper data)"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  payload-oversize:
+    description: "Plugin-message payload exceeded the configured byte cap"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  chat-oversize:
+    description: "Chat message length exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  command-oversize:
+    description: "Command text length exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  tab-abuse:
+    description: "Tab-complete text length exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  movement-invalid:
+    description: "Non-finite (NaN/Infinity) coordinates or rotation"
+    enabled: true
+    severity: CRITICAL
+    cooldown-ms: 1000
+    actions: [LOG, ALERT]
+
+  movement-extreme-delta:
+    description: "Two consecutive movement deltas beyond physical bounds"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  movement-rotation-spam:
+    description: "Sustained extreme rotation rate"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 3000
+    actions: [LOG]
+
+  book-pages:
+    description: "Book page count exceeded"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  book-size:
+    description: "Book total text size exceeded"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  book-page-size:
+    description: "Single book page exceeded the length cap"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  book-title-size:
+    description: "Book title exceeded the length cap"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  sign-oversize:
+    description: "Sign line exceeded the length cap"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  chat-flood:
+    description: "Chat rate exceeded (Bukkit layer)"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  command-flood:
+    description: "Command rate exceeded (Bukkit layer)"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  click-flood:
+    description: "Inventory click rate exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  item-amount:
+    description: "Item stack amount exceeds its max stack size"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  chunk-generation-storm:
+    description: "Global new-chunk generation rate exceeded (monitoring)"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 10000
+    actions: [LOG, ALERT]
+
+  chunk-request-storm:
+    description: "Per-player chunk visit rate exceeded (monitoring)"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 10000
+    actions: [LOG]
+
+  entity-spawn-storm:
+    description: "Global entity spawn rate exceeded; spawn cancelled"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 2000
+    actions: [LOG, ALERT]
+
+  entity-chunk-cap:
+    description: "Chunk entity count exceeded the configured cap"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 5000
+    actions: [LOG]
+
+  projectile-spam:
+    description: "Per-player projectile launch rate exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  interaction-flood:
+    description: "Per-player interaction rate exceeded"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 2000
+    actions: [LOG]
+
+  redstone-storm:
+    description: "Redstone current-change rate exceeded; current neutralized temporarily"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 5000
+    actions: [LOG, ALERT]
+
+  physics-storm:
+    description: "Block physics rate exceeded; physics suppressed temporarily"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 5000
+    actions: [LOG, ALERT]
+
+  piston-storm:
+    description: "Piston movement rate exceeded; pistons blocked temporarily"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 5000
+    actions: [LOG, ALERT]
+
+  hopper-storm:
+    description: "Hopper item-move rate exceeded; moves cancelled while storm active"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 5000
+    actions: [LOG]
+
+  dispenser-storm:
+    description: "Dispense rate exceeded; dispensing blocked temporarily"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 5000
+    actions: [LOG]
+
+  login-flood:
+    description: "Login burst from one address; excess logins softly refused"
+    enabled: true
+    severity: HIGH
+    cooldown-ms: 5000
+    actions: [LOG, ALERT]
+
+  reconnect-spam:
+    description: "Reconnect attempts for one name exceeded the window limit"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 5000
+    actions: [LOG]
+
+  memory-pressure:
+    description: "JVM heap above the critical threshold; Safe Mode auto-enabled"
+    enabled: true
+    severity: CRITICAL
+    threshold: 90.0
+    cooldown-ms: 30000
+    actions: [LOG, ALERT]
+
+  memory-warning:
+    description: "JVM heap above the warning threshold (recovery level)"
+    enabled: true
+    severity: MEDIUM
+    threshold: 80.0
+    cooldown-ms: 30000
+    actions: [LOG]
+
+  tps-collapse:
+    description: "Sustained TPS/MSPT degradation; Safe Mode auto-enabled"
+    enabled: true
+    severity: HIGH
+    threshold: 12.0
+    cooldown-ms: 30000
+    actions: [LOG, ALERT]
+
+  safemode-manual:
+    description: "Safe Mode toggled manually by an administrator"
+    enabled: true
+    severity: MEDIUM
+    cooldown-ms: 1000
+    actions: [LOG]
